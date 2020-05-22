@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8" ?>
+<ContentPage xmlns="http://xamarin.com/schemas/2014/forms"
+             xmlns:x="http://schemas.microsoft.com/winfx/2009/xaml"
+             xmlns:d="http://xamarin.com/schemas/2014/forms/design"
+             xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006"
+             mc:Ignorable="d"
+             x:Class="IntratimeClient.View.ListClocksPage">
+    <ContentPage.ToolbarItems>
+    </ContentPage.ToolbarItems>
+    <ContentPage.Content>
+
+        <StackLayout VerticalOptions="StartAndExpand">
+
+            <DatePicker x:Name="startDatePicker"
+                        Date="{Binding StartDate}" />
+
+            <DatePicker x:Name="endDatePicker"
+                        Date="{Binding EndDate}"
+                        MinimumDate="{Binding Source={x:Reference startDatePicker}, Path=Date}" />
+
+            <Button Text="Search" Command="{Binding SearchClocksCommand}" />
+
+            <CollectionView x:Name="ClocksCollectionView" ItemsSource="{Binding ExistingClocks}">
+                <CollectionView.ItemsLayout>
+                    <LinearItemsLayout Orientation="Vertical" ItemSpacing="0" />
+                </CollectionView.ItemsLayout>
+                <CollectionView.EmptyView>
+                    <Label Text="No results" />
+                </CollectionView.EmptyView>
+                
+                <CollectionView.ItemTemplate>
+                    <DataTemplate>
+                        <Grid Margin="0, 0, 0, 0">
+                            <Grid.ColumnDefinitions>
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                                <ColumnDefinition Width="1*" />
+                            </Grid.ColumnDefinitions>
+
+                            <Grid.RowDefinitions>
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="20" />
+                                <RowDefinition Height="*" />
+                                <RowDefinition Height="20" />
+                            </Grid.RowDefinitions>
+                            <BoxView Grid.Row="0" 
+                                     Grid.RowSpan="2"
+                                     Grid.Column="0" 
+                                     Grid.ColumnSpan="4" 
+                                     Color="Black"></BoxView>
+
+                            <!--Day of Week-->
+                            <Label
+                                Grid.Row="0" 
+                                Grid.Column="3"
+                                HorizontalTextAlignment="End"
+                                TextColor="White"
+                                Text="{Binding Day, StringFormat='{0:dddd}'}" />
+
+                            <Label
+                                Grid.Row="0" 
+                                Grid.Column="0"
+                                Grid.ColumnSpan="4"
+                                HorizontalTextAlignment="Center"
+                                TextColor="White"
+                                Text="{Binding Day, StringFormat='{0:dd/MM/yyyy}'}" />
+
+                            <!--Labels Checkin Checkout-->
+                            <Label Grid.Row="1" 
+                                   Grid.Column="0"
+                                   Text="Check In" 
+                                   TextColor="White"
+                                   VerticalTextAlignment="Center" 
+                                   HorizontalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Row="1" 
+                                   Grid.Column="1"
+                                   Text="Pause" 
+                                   TextColor="White"
+                                   VerticalTextAlignment="Center" 
+                                   HorizontalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Row="1" 
+                                   Grid.Column="2"
+                                   Text="Back" 
+                                   TextColor="White"
+                                   VerticalTextAlignment="Center" 
+                                   HorizontalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="Center" />
+                            <Label Grid.Row="1" 
+                                   Grid.Column="3"
+                                   Text="Check Out" 
+                                   TextColor="White"
+                                   VerticalTextAlignment="Center"
+                                   HorizontalOptions="FillAndExpand"
+                                   HorizontalTextAlignment="Center" />
+
+                            <!--Items-->
+                            <Label Grid.Row="2" 
+                               Grid.Column="0"
+                               Text="{Binding ClocksEntradaTimesList}" 
+                               VerticalTextAlignment="Start" 
+                               HorizontalTextAlignment="End" />
+
+                            <Label Grid.Row="2" 
+                                   Grid.Column="1"
+                                   Text="{Binding ClocksPausaTimesList}" 
+                                   VerticalTextAlignment="Start" 
+                                   HorizontalTextAlignment="End" />
+
+                            <Label Grid.Row="2" 
+                                   Grid.Column="2"
+                                   Text="{Binding ClocksVolverTimesList}" 
+                                   VerticalTextAlignment="Start" 
+                                   HorizontalTextAlignment="End" />
+
+                            <Label Grid.Row="2" 
+                                   Grid.Column="3"
+                                   Text="{Binding ClocksSalidaTimesList}" 
+                                   VerticalTextAlignment="Start" 
+                                   HorizontalTextAlignment="End" />
+
+                            <Label
+                                Grid.Row="3"
+                                Grid.ColumnSpan="4"
+                                HorizontalTextAlignment="End"
+                                BackgroundColor="Gray"
+                                TextColor="White"      
+                                Text="{Binding WorkingHours}" />
+                        </Grid>
+                        </DataTemplate>
+                    </CollectionView.ItemTemplate>
+                </CollectionView>
+
+        </StackLayout>
+    </ContentPage.Content>
+</ContentPage>
